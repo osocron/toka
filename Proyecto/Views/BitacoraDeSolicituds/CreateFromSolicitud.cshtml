@@ -1,0 +1,75 @@
+﻿@model Proyecto.Models.BitacoraConAutos
+
+@{
+    ViewBag.Title = "Bitacora";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bitacora</h2>
+
+@using (Html.BeginForm("CreateFromSolicitud", "BitacoraDeSolicituds", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.EditorFor(modelItem => modelItem.IdSolicitud)
+    <table class="table">
+        <tr>
+            <th>
+                Folio
+            </th>
+            <th>
+                Color
+            </th>
+            <th>
+                Descripcion Estetica
+            </th>
+            <th>
+                Id Marca
+            </th>
+            <th>
+                Id Modelo
+            </th>
+            <th>
+                Id Transmision
+            </th>
+            <th>
+                Seleccionado
+            </th>
+        </tr>
+        @{
+            int i = 0;
+            foreach (var item in Model.AutosConSeleccion)
+             {
+                 <tr>
+                     <td>
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Auto.IdAuto, new { @id = "Id_" + i })
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Auto.Folio, new {@id = "Folio_" + i})
+                     </td>
+                     <td>
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Auto.Color, new { @id = "Color_" + i })
+                     </td>
+                     <td>
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Auto.DescripcionEstetica, new { @id = "Estetica_" + i })
+                     </td>
+                     <td>
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Auto.Marcas.IdMarca, new { @id = "Marca_" + i })
+                     </td>
+                     <td>
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Auto.Modelos.IdModelo, new { @id = "Modelo_" + i })
+                     </td>
+                     <td>
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Auto.TiposTransmision.IdTipoTransmision, new { @id = "Transmision_" + i })
+                     </td>
+                     <td>
+                         @Html.EditorFor(modelItem => modelItem.AutosConSeleccion[i].Seleccionado, new { @id = "Seleccionado_" + i })
+                     </td>
+                 </tr>
+                 i++;
+             }
+        }
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-10 col-md-2">
+            <input type="submit" value="Guardar" class="btn btn-default" />
+        </div>
+    </div>
+}

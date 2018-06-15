@@ -54,7 +54,8 @@ namespace Proyecto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Autos.Add(autos);
+                db.CrearAuto(0, autos.Folio, autos.IdMarca, autos.IdModelo, autos.Color, autos.IdTipoTransmision,
+                    autos.DescripcionEstetica);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -32,7 +32,9 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.IdSolicitudDeTransporte }) |
             @Html.ActionLink("Detalles", "Details", new { id=item.IdSolicitudDeTransporte }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdSolicitudDeTransporte })
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdSolicitudDeTransporte }) |
+            @Html.ActionLink("Asignar Bitacora", "CreateFromSolicitud",
+                "BitacoraDeSolicituds", new { id = item.IdSolicitudDeTransporte }, null)
         </td>
     </tr>
 }

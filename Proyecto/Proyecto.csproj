@@ -172,6 +172,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BitacoraDeSolicitud.cs" />
     <Compile Include="Models\EntityModel\Autos.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -179,6 +180,12 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityModel\CrearAuto_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModel\CrearBitacora_Result.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityModel\CrearSolicitud_Result.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityModel\DataModel.Context.cs">
@@ -279,6 +286,7 @@
     <Content Include="Views\BitacoraDeSolicituds\Details.cshtml" />
     <Content Include="Views\BitacoraDeSolicituds\Edit.cshtml" />
     <Content Include="Views\BitacoraDeSolicituds\Index.cshtml" />
+    <Content Include="Views\BitacoraDeSolicituds\CreateFromSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

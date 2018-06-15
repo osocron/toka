@@ -55,7 +55,7 @@ namespace Proyecto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.SolicitudDeTransporte.Add(solicitudDeTransporte);
+                db.CrearSolicitud(0, solicitudDeTransporte.Fecha, solicitudDeTransporte.NumeroDeLote);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -66,5 +66,39 @@ namespace Proyecto.Models.EntityModel
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CrearAuto_Result>("CrearAuto", idAutoParameter, folioParameter, idMarcaParameter, idModeloParameter, colorParameter, idTipoTransmisionParameter, descripcionEsteticaParameter);
         }
+    
+        public virtual ObjectResult<CrearBitacora_Result> CrearBitacora(Nullable<int> idBitacora, Nullable<int> idSolicitud, Nullable<int> idAuto)
+        {
+            var idBitacoraParameter = idBitacora.HasValue ?
+                new ObjectParameter("IdBitacora", idBitacora) :
+                new ObjectParameter("IdBitacora", typeof(int));
+    
+            var idSolicitudParameter = idSolicitud.HasValue ?
+                new ObjectParameter("IdSolicitud", idSolicitud) :
+                new ObjectParameter("IdSolicitud", typeof(int));
+    
+            var idAutoParameter = idAuto.HasValue ?
+                new ObjectParameter("IdAuto", idAuto) :
+                new ObjectParameter("IdAuto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CrearBitacora_Result>("CrearBitacora", idBitacoraParameter, idSolicitudParameter, idAutoParameter);
+        }
+    
+        public virtual ObjectResult<CrearSolicitud_Result> CrearSolicitud(Nullable<int> idSolicitud, Nullable<System.DateTime> fecha, string numeroDeLote)
+        {
+            var idSolicitudParameter = idSolicitud.HasValue ?
+                new ObjectParameter("IdSolicitud", idSolicitud) :
+                new ObjectParameter("IdSolicitud", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            var numeroDeLoteParameter = numeroDeLote != null ?
+                new ObjectParameter("NumeroDeLote", numeroDeLote) :
+                new ObjectParameter("NumeroDeLote", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CrearSolicitud_Result>("CrearSolicitud", idSolicitudParameter, fechaParameter, numeroDeLoteParameter);
+        }
     }
 }
