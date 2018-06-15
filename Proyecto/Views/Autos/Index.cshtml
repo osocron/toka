@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Proyecto.Models.EntityModel.Autos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Autos</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Folio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            Descripcion Estetica
+        </th>
+        <th>
+            Marca
+        </th>
+        <th>
+            Modelo
+        </th>
+        <th>
+            Transmision
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Folio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescripcionEstetica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Marcas.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modelos.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TiposTransmision.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdAuto }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.IdAuto }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdAuto })
+        </td>
+    </tr>
+}
+
+</table>

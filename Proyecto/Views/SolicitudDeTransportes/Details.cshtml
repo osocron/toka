@@ -1,0 +1,84 @@
+﻿@model Tuple<Proyecto.Models.EntityModel.SolicitudDeTransporte, List<Proyecto.Models.EntityModel.Autos>>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SolicitudDeTransporte</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Item1.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item1.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Item1.NumeroDeLote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item1.NumeroDeLote)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Folio
+        </th>
+        <th>
+            Color
+        </th>
+        <th>
+            Descripcion Estetica
+        </th>
+        <th>
+            Marca
+        </th>
+        <th>
+            Modelo
+        </th>
+        <th>
+            Transmision
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Item2) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Folio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcionEstetica)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marcas.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelos.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TiposTransmision.Descripcion)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Item1.IdSolicitudDeTransporte }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

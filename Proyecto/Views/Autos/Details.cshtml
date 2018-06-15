@@ -1,0 +1,66 @@
+﻿@model Proyecto.Models.EntityModel.Autos
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detaller</h2>
+
+<div>
+    <h4>Autos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Folio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Folio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescripcionEstetica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescripcionEstetica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marcas.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marcas.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelos.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelos.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TiposTransmision.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TiposTransmision.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdAuto }) |
+    @Html.ActionLink("Regresar a la lista", "Index")
+</p>

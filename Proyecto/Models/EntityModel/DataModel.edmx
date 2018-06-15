@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TransportesABCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autos">
+          <Key>
+            <PropertyRef Name="IdAuto" />
+          </Key>
+          <Property Name="IdAuto" Type="int" Nullable="false" />
+          <Property Name="Folio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdMarca" Type="int" Nullable="false" />
+          <Property Name="IdModelo" Type="int" Nullable="false" />
+          <Property Name="Color" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdTipoTransmision" Type="int" Nullable="false" />
+          <Property Name="DescripcionEstetica" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BitacoraDeSolicitud">
+          <Key>
+            <PropertyRef Name="IdBitacoraDeSolicitud" />
+          </Key>
+          <Property Name="IdBitacoraDeSolicitud" Type="int" Nullable="false" />
+          <Property Name="IdSolicitudDeTransporte" Type="int" Nullable="false" />
+          <Property Name="IdAuto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Marcas">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modelos">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SolicitudDeTransporte">
+          <Key>
+            <PropertyRef Name="IdSolicitudDeTransporte" />
+          </Key>
+          <Property Name="IdSolicitudDeTransporte" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="NumeroDeLote" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposTransmision">
+          <Key>
+            <PropertyRef Name="IdTipoTransmision" />
+          </Key>
+          <Property Name="IdTipoTransmision" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Autos_Marcas">
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="1" />
+          <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marcas">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Autos">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autos_Modelos">
+          <End Role="Modelos" Type="Self.Modelos" Multiplicity="1" />
+          <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modelos">
+              <PropertyRef Name="IdModelo" />
+            </Principal>
+            <Dependent Role="Autos">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autos_TiposTransmision">
+          <End Role="TiposTransmision" Type="Self.TiposTransmision" Multiplicity="1" />
+          <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposTransmision">
+              <PropertyRef Name="IdTipoTransmision" />
+            </Principal>
+            <Dependent Role="Autos">
+              <PropertyRef Name="IdTipoTransmision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BitacoraDeSolicitud_Autos">
+          <End Role="Autos" Type="Self.Autos" Multiplicity="1" />
+          <End Role="BitacoraDeSolicitud" Type="Self.BitacoraDeSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autos">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="BitacoraDeSolicitud">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BitacoraDeSolicitud_SolicitudDeTransporte">
+          <End Role="SolicitudDeTransporte" Type="Self.SolicitudDeTransporte" Multiplicity="1" />
+          <End Role="BitacoraDeSolicitud" Type="Self.BitacoraDeSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SolicitudDeTransporte">
+              <PropertyRef Name="IdSolicitudDeTransporte" />
+            </Principal>
+            <Dependent Role="BitacoraDeSolicitud">
+              <PropertyRef Name="IdSolicitudDeTransporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CrearAuto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAuto" Type="int" Mode="In" />
+          <Parameter Name="Folio" Type="varchar" Mode="In" />
+          <Parameter Name="IdMarca" Type="int" Mode="In" />
+          <Parameter Name="IdModelo" Type="int" Mode="In" />
+          <Parameter Name="Color" Type="varchar" Mode="In" />
+          <Parameter Name="IdTipoTransmision" Type="int" Mode="In" />
+          <Parameter Name="DescripcionEstetica" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="TransportesABCModelStoreContainer">
+          <EntitySet Name="Autos" EntityType="Self.Autos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraDeSolicitud" EntityType="Self.BitacoraDeSolicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marcas" EntityType="Self.Marcas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modelos" EntityType="Self.Modelos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SolicitudDeTransporte" EntityType="Self.SolicitudDeTransporte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposTransmision" EntityType="Self.TiposTransmision" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Autos_Marcas" Association="Self.FK_Autos_Marcas">
+            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autos_Modelos" Association="Self.FK_Autos_Modelos">
+            <End Role="Modelos" EntitySet="Modelos" />
+            <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autos_TiposTransmision" Association="Self.FK_Autos_TiposTransmision">
+            <End Role="TiposTransmision" EntitySet="TiposTransmision" />
+            <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BitacoraDeSolicitud_Autos" Association="Self.FK_BitacoraDeSolicitud_Autos">
+            <End Role="Autos" EntitySet="Autos" />
+            <End Role="BitacoraDeSolicitud" EntitySet="BitacoraDeSolicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BitacoraDeSolicitud_SolicitudDeTransporte" Association="Self.FK_BitacoraDeSolicitud_SolicitudDeTransporte">
+            <End Role="SolicitudDeTransporte" EntitySet="SolicitudDeTransporte" />
+            <End Role="BitacoraDeSolicitud" EntitySet="BitacoraDeSolicitud" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TransportesABCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Autos">
+          <Key>
+            <PropertyRef Name="IdAuto" />
+          </Key>
+          <Property Name="IdAuto" Type="Int32" Nullable="false" />
+          <Property Name="Folio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdMarca" Type="Int32" Nullable="false" />
+          <Property Name="IdModelo" Type="Int32" Nullable="false" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTipoTransmision" Type="Int32" Nullable="false" />
+          <Property Name="DescripcionEstetica" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Marcas" Relationship="Self.FK_Autos_Marcas" FromRole="Autos" ToRole="Marcas" />
+          <NavigationProperty Name="Modelos" Relationship="Self.FK_Autos_Modelos" FromRole="Autos" ToRole="Modelos" />
+          <NavigationProperty Name="TiposTransmision" Relationship="Self.FK_Autos_TiposTransmision" FromRole="Autos" ToRole="TiposTransmision" />
+          <NavigationProperty Name="BitacoraDeSolicitud" Relationship="Self.FK_BitacoraDeSolicitud_Autos" FromRole="Autos" ToRole="BitacoraDeSolicitud" />
+        </EntityType>
+        <EntityType Name="BitacoraDeSolicitud">
+          <Key>
+            <PropertyRef Name="IdBitacoraDeSolicitud" />
+          </Key>
+          <Property Name="IdBitacoraDeSolicitud" Type="Int32" Nullable="false" />
+          <Property Name="IdSolicitudDeTransporte" Type="Int32" Nullable="false" />
+          <Property Name="IdAuto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Autos" Relationship="Self.FK_BitacoraDeSolicitud_Autos" FromRole="BitacoraDeSolicitud" ToRole="Autos" />
+          <NavigationProperty Name="SolicitudDeTransporte" Relationship="Self.FK_BitacoraDeSolicitud_SolicitudDeTransporte" FromRole="BitacoraDeSolicitud" ToRole="SolicitudDeTransporte" />
+        </EntityType>
+        <EntityType Name="Marcas">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Autos" Relationship="Self.FK_Autos_Marcas" FromRole="Marcas" ToRole="Autos" />
+        </EntityType>
+        <EntityType Name="Modelos">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Autos" Relationship="Self.FK_Autos_Modelos" FromRole="Modelos" ToRole="Autos" />
+        </EntityType>
+        <EntityType Name="SolicitudDeTransporte">
+          <Key>
+            <PropertyRef Name="IdSolicitudDeTransporte" />
+          </Key>
+          <Property Name="IdSolicitudDeTransporte" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NumeroDeLote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BitacoraDeSolicitud" Relationship="Self.FK_BitacoraDeSolicitud_SolicitudDeTransporte" FromRole="SolicitudDeTransporte" ToRole="BitacoraDeSolicitud" />
+        </EntityType>
+        <EntityType Name="TiposTransmision">
+          <Key>
+            <PropertyRef Name="IdTipoTransmision" />
+          </Key>
+          <Property Name="IdTipoTransmision" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Autos" Relationship="Self.FK_Autos_TiposTransmision" FromRole="TiposTransmision" ToRole="Autos" />
+        </EntityType>
+        <Association Name="FK_Autos_Marcas">
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="1" />
+          <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marcas">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="Autos">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autos_Modelos">
+          <End Role="Modelos" Type="Self.Modelos" Multiplicity="1" />
+          <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modelos">
+              <PropertyRef Name="IdModelo" />
+            </Principal>
+            <Dependent Role="Autos">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Autos_TiposTransmision">
+          <End Role="TiposTransmision" Type="Self.TiposTransmision" Multiplicity="1" />
+          <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposTransmision">
+              <PropertyRef Name="IdTipoTransmision" />
+            </Principal>
+            <Dependent Role="Autos">
+              <PropertyRef Name="IdTipoTransmision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BitacoraDeSolicitud_Autos">
+          <End Role="Autos" Type="Self.Autos" Multiplicity="1" />
+          <End Role="BitacoraDeSolicitud" Type="Self.BitacoraDeSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autos">
+              <PropertyRef Name="IdAuto" />
+            </Principal>
+            <Dependent Role="BitacoraDeSolicitud">
+              <PropertyRef Name="IdAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BitacoraDeSolicitud_SolicitudDeTransporte">
+          <End Role="SolicitudDeTransporte" Type="Self.SolicitudDeTransporte" Multiplicity="1" />
+          <End Role="BitacoraDeSolicitud" Type="Self.BitacoraDeSolicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SolicitudDeTransporte">
+              <PropertyRef Name="IdSolicitudDeTransporte" />
+            </Principal>
+            <Dependent Role="BitacoraDeSolicitud">
+              <PropertyRef Name="IdSolicitudDeTransporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TransportesABCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autos" EntityType="Self.Autos" />
+          <EntitySet Name="BitacoraDeSolicitud" EntityType="Self.BitacoraDeSolicitud" />
+          <EntitySet Name="Marcas" EntityType="Self.Marcas" />
+          <EntitySet Name="Modelos" EntityType="Self.Modelos" />
+          <EntitySet Name="SolicitudDeTransporte" EntityType="Self.SolicitudDeTransporte" />
+          <EntitySet Name="TiposTransmision" EntityType="Self.TiposTransmision" />
+          <AssociationSet Name="FK_Autos_Marcas" Association="Self.FK_Autos_Marcas">
+            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autos_Modelos" Association="Self.FK_Autos_Modelos">
+            <End Role="Modelos" EntitySet="Modelos" />
+            <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Autos_TiposTransmision" Association="Self.FK_Autos_TiposTransmision">
+            <End Role="TiposTransmision" EntitySet="TiposTransmision" />
+            <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BitacoraDeSolicitud_Autos" Association="Self.FK_BitacoraDeSolicitud_Autos">
+            <End Role="Autos" EntitySet="Autos" />
+            <End Role="BitacoraDeSolicitud" EntitySet="BitacoraDeSolicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BitacoraDeSolicitud_SolicitudDeTransporte" Association="Self.FK_BitacoraDeSolicitud_SolicitudDeTransporte">
+            <End Role="SolicitudDeTransporte" EntitySet="SolicitudDeTransporte" />
+            <End Role="BitacoraDeSolicitud" EntitySet="BitacoraDeSolicitud" />
+          </AssociationSet>
+          <FunctionImport Name="CrearAuto" ReturnType="Collection(TransportesABCModel.CrearAuto_Result)">
+            <Parameter Name="IdAuto" Mode="In" Type="Int32" />
+            <Parameter Name="Folio" Mode="In" Type="String" />
+            <Parameter Name="IdMarca" Mode="In" Type="Int32" />
+            <Parameter Name="IdModelo" Mode="In" Type="Int32" />
+            <Parameter Name="Color" Mode="In" Type="String" />
+            <Parameter Name="IdTipoTransmision" Mode="In" Type="Int32" />
+            <Parameter Name="DescripcionEstetica" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="CrearAuto_Result">
+          <Property Type="Int32" Name="IdAuto" Nullable="false" />
+          <Property Type="String" Name="Folio" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="IdMarca" Nullable="false" />
+          <Property Type="Int32" Name="IdModelo" Nullable="false" />
+          <Property Type="String" Name="Color" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="IdTipoTransmision" Nullable="false" />
+          <Property Type="String" Name="DescripcionEstetica" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TransportesABCModelStoreContainer" CdmEntityContainer="TransportesABCEntities">
+          <EntitySetMapping Name="Autos">
+            <EntityTypeMapping TypeName="TransportesABCModel.Autos">
+              <MappingFragment StoreEntitySet="Autos">
+                <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="IdTipoTransmision" ColumnName="IdTipoTransmision" />
+                <ScalarProperty Name="DescripcionEstetica" ColumnName="DescripcionEstetica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraDeSolicitud">
+            <EntityTypeMapping TypeName="TransportesABCModel.BitacoraDeSolicitud">
+              <MappingFragment StoreEntitySet="BitacoraDeSolicitud">
+                <ScalarProperty Name="IdBitacoraDeSolicitud" ColumnName="IdBitacoraDeSolicitud" />
+                <ScalarProperty Name="IdSolicitudDeTransporte" ColumnName="IdSolicitudDeTransporte" />
+                <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marcas">
+            <EntityTypeMapping TypeName="TransportesABCModel.Marcas">
+              <MappingFragment StoreEntitySet="Marcas">
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modelos">
+            <EntityTypeMapping TypeName="TransportesABCModel.Modelos">
+              <MappingFragment StoreEntitySet="Modelos">
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SolicitudDeTransporte">
+            <EntityTypeMapping TypeName="TransportesABCModel.SolicitudDeTransporte">
+              <MappingFragment StoreEntitySet="SolicitudDeTransporte">
+                <ScalarProperty Name="IdSolicitudDeTransporte" ColumnName="IdSolicitudDeTransporte" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NumeroDeLote" ColumnName="NumeroDeLote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposTransmision">
+            <EntityTypeMapping TypeName="TransportesABCModel.TiposTransmision">
+              <MappingFragment StoreEntitySet="TiposTransmision">
+                <ScalarProperty Name="IdTipoTransmision" ColumnName="IdTipoTransmision" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CrearAuto" FunctionName="TransportesABCModel.Store.CrearAuto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TransportesABCModel.CrearAuto_Result">
+                <ScalarProperty Name="IdAuto" ColumnName="IdAuto" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="IdTipoTransmision" ColumnName="IdTipoTransmision" />
+                <ScalarProperty Name="DescripcionEstetica" ColumnName="DescripcionEstetica" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

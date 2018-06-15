@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Proyecto.Models.EntityModel.SolicitudDeTransporte>
+
+@{
+    ViewBag.Title = "Solicitudes de Transporte";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Solicitudes de Transporte</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva solicitud", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            Numero de Lote
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroDeLote)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdSolicitudDeTransporte }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.IdSolicitudDeTransporte }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdSolicitudDeTransporte })
+        </td>
+    </tr>
+}
+
+</table>
